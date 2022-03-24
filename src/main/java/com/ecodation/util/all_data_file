@@ -1,0 +1,173 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Anamakine: 127.0.0.1
+-- Üretim Zamanı: 24 Mar 2022, 18:36:51
+-- Sunucu sürümü: 10.4.22-MariaDB
+-- PHP Sürümü: 8.0.15
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Veritabanı: `bas`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `customer`
+--
+
+CREATE TABLE `customer` (
+  `customerId` bigint(20) NOT NULL,
+  `customerName` text COLLATE utf8mb4_turkish_ci NOT NULL,
+  `customerSurname` text COLLATE utf8mb4_turkish_ci NOT NULL,
+  `customerMail` varchar(100) COLLATE utf8mb4_turkish_ci NOT NULL,
+  `customerPassword` varchar(100) COLLATE utf8mb4_turkish_ci NOT NULL,
+  `customerBalance` bigint(20) DEFAULT NULL,
+  `creationDate` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_turkish_ci;
+
+--
+-- Tablo döküm verisi `customer`
+--
+
+INSERT INTO `customer` (`customerId`, `customerName`, `customerSurname`, `customerMail`, `customerPassword`, `customerBalance`, `creationDate`) VALUES
+(2, 'Hamit', 'mızrak', 'mizrak@gmail.com', 'mızrak123', 45000, '2022-03-24 16:17:26'),
+(3, 'Mahmut', 'Akbil', 'akbil@gmail.com', 'akbil123', 40000, '2022-03-24 16:20:26');
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `disabled`
+--
+
+CREATE TABLE `disabled` (
+  `customerId` bigint(20) NOT NULL,
+  `customerName` text COLLATE utf8mb4_turkish_ci NOT NULL,
+  `customerSurname` text COLLATE utf8mb4_turkish_ci NOT NULL,
+  `customerMail` varchar(100) COLLATE utf8mb4_turkish_ci NOT NULL,
+  `customerPassword` varchar(100) COLLATE utf8mb4_turkish_ci NOT NULL,
+  `customerBalance` bigint(20) DEFAULT NULL,
+  `creationDate` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_turkish_ci;
+
+--
+-- Tablo döküm verisi `disabled`
+--
+
+INSERT INTO `disabled` (`customerId`, `customerName`, `customerSurname`, `customerMail`, `customerPassword`, `customerBalance`, `creationDate`) VALUES
+(1, 'Muhammed', 'Çetin', 'emin@gmail.com', 'emin123', NULL, '2022-03-24 16:17:02'),
+(4, 'Ali', 'Veli', 'veli@gmail.com', 'veli123', 25000, '2022-03-24 16:34:18'),
+(5, 'Gamze', 'Ergör', 'gamze@gmail.com', '123456', NULL, '2022-03-24 17:21:55');
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `employee`
+--
+
+CREATE TABLE `employee` (
+  `employeeId` bigint(20) NOT NULL,
+  `employeeName` text COLLATE utf8mb4_turkish_ci NOT NULL,
+  `employeeSurname` text COLLATE utf8mb4_turkish_ci NOT NULL,
+  `employeeMail` varchar(100) COLLATE utf8mb4_turkish_ci NOT NULL,
+  `employeePassword` varchar(100) COLLATE utf8mb4_turkish_ci NOT NULL,
+  `creationDate` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_turkish_ci;
+
+--
+-- Tablo döküm verisi `employee`
+--
+
+INSERT INTO `employee` (`employeeId`, `employeeName`, `employeeSurname`, `employeeMail`, `employeePassword`, `creationDate`) VALUES
+(1, 'Admin', 'Admin', 'admin@gmail.com', 'admin123', '2022-03-24 16:19:22');
+
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `statement`
+--
+
+CREATE TABLE `statement` (
+  `statementId` bigint(20) NOT NULL,
+  `customerMail` varchar(100) COLLATE utf8mb4_turkish_ci NOT NULL,
+  `process` text COLLATE utf8mb4_turkish_ci NOT NULL,
+  `amount` bigint(20) NOT NULL,
+  `balance` bigint(20) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_turkish_ci;
+
+--
+-- Tablo döküm verisi `statement`
+--
+
+INSERT INTO `statement` (`statementId`, `customerMail`, `process`, `amount`, `balance`, `date`) VALUES
+(1, 'gamze@gmail.com', 'Blocked due to wrong password', 0, 0, '2022-03-24 17:22:24'),
+(2, 'mizrak@gmail.com', 'Successful Login', 0, 0, '2022-03-24 17:23:03'),
+(3, 'mizrak@gmail.com', 'Deposit', 50000, 75000, '2022-03-24 17:23:18'),
+(4, 'mizrak@gmail.com', 'Withdraw', 10000, 65000, '2022-03-24 17:24:04'),
+(5, 'mizrak@gmail.com', 'Outgoing Transfer to akbil@gmail.com', 20000, 45000, '2022-03-24 17:24:35'),
+(6, 'akbil@gmail.com', 'Incoming Transfer by mizrak@gmail.com', 20000, 40000, '2022-03-24 17:24:35'),
+(7, 'admin@gmail.com', 'Successful Login', 0, 0, '2022-03-24 17:25:13'),
+(8, 'admin@gmail.com', 'mizrak@gmail.com: Customer Disabled', 0, 0, '2022-03-24 17:25:47'),
+(9, 'admin@gmail.com', 'mizrak@gmail.com: Cuustomer Enabled', 0, 0, '2022-03-24 17:26:20'),
+(10, 'admin@gmail.com', 'mizrak@gmail.com: customer\' statement viewed.', 0, 0, '2022-03-24 17:26:52');
+
+--
+-- Dökümü yapılmış tablolar için indeksler
+--
+
+--
+-- Tablo için indeksler `customer`
+--
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`customerId`);
+
+--
+-- Tablo için indeksler `employee`
+--
+ALTER TABLE `employee`
+  ADD PRIMARY KEY (`employeeId`);
+
+--
+-- Tablo için indeksler `statement`
+--
+ALTER TABLE `statement`
+  ADD PRIMARY KEY (`statementId`);
+
+--
+-- Dökümü yapılmış tablolar için AUTO_INCREMENT değeri
+--
+
+--
+-- Tablo için AUTO_INCREMENT değeri `customer`
+--
+ALTER TABLE `customer`
+  MODIFY `customerId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- Tablo için AUTO_INCREMENT değeri `employee`
+--
+ALTER TABLE `employee`
+  MODIFY `employeeId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Tablo için AUTO_INCREMENT değeri `statement`
+--
+ALTER TABLE `statement`
+  MODIFY `statementId` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
